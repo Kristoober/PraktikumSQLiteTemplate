@@ -9,7 +9,7 @@ Public Class CKomponent
     ''' <summary>
     ''' Path to where your database file will be stored and accessed from
     ''' </summary>
-    Dim dbPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "App.db")
+    Dim dbPath As String = Path.Combine(Directory.GetCurrentDirectory(), "App.db")
 
     ''' <summary>
     ''' Handles initializing process. This includes making the database file if it is missing.
