@@ -1,0 +1,40 @@
+﻿Imports System.CodeDom
+
+Public Class SQLGUI
+
+    Private Pages = 0
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        If listSQLSelection.Columns < Pages Then
+            lblRemove.Text = "No more pages available!"
+        Else
+            'next items'
+        End If
+    End Sub
+
+    Private Sub btnPrev_Click(sender As Object, e As EventArgs) Handles btnPrev.Click
+        If listSQLSelection.Columns > Pages Then
+            lblRemove.Text = "No more pages available!"
+        Else
+            'prev items'
+        End If
+    End Sub
+
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+        'remove selected?'
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        If txtboxName.Text Is Nothing Or txtboxCode.Text Is Nothing Or txtboxGrade.Text Is Nothing Then
+            lblAdd.Text = "Make sure all inputs are filled!"
+        ElseIf Not (IsNumeric(txtboxCode.Text)) Or Not (IsNumeric(txtboxGrade.Text)) Then
+            lblAdd.Text = "Invalid inputs!"
+        Else
+            'Add when successful'
+
+        End If
+    End Sub
+
+    Private Sub SQLGUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Pages = ' Fetch pages amount available
+    End Sub
+End Class
