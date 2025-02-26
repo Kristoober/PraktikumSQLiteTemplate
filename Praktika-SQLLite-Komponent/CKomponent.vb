@@ -17,7 +17,7 @@ Public Class CKomponent
     Private Sub InitDb() Implements IInterface.InitDb
         If Not File.Exists(dbPath) Then
             SQLiteConnection.CreateFile(dbPath)
-            Dim sql As String = "CREATE TABLE IF NOT EXISTS Students (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Code INTEGER, Grade INTEGER);"
+            Dim sql As String = "CREATE TABLE IF NOT EXISTS Students (ID INTEGER AUTOINCREMENT, Name TEXT, Code INTEGER, Grade INTEGER);"
             Try
                 Using connection As New SQLiteConnection($"Data Source={dbPath};Version=3;")
                     connection.Open()
