@@ -10,6 +10,7 @@ Public Class CKomponent
     ''' Path to where your database file will be stored and accessed from
     ''' </summary>
     Dim dbPath As String = Path.Combine(Directory.GetCurrentDirectory(), "App.db")
+    Dim sqlConnectionString As String = $"Data Source={dbPath};Version=3;"
 
     ''' <summary>
     ''' Handles initializing process. This includes making the database file if it is missing.
@@ -19,7 +20,7 @@ Public Class CKomponent
             SQLiteConnection.CreateFile(dbPath)
             Dim sql As String = "CREATE TABLE IF NOT EXISTS Students (ID INTEGER AUTOINCREMENT, Name TEXT, Code INTEGER, Grade INTEGER);"
             Try
-                Using connection As New SQLiteConnection($"Data Source={dbPath};Version=3;")
+                Using connection As New SQLiteConnection(sqlConnectionString)
                     connection.Open()
                     Dim cmd As New SQLiteCommand(sql, connection)
                     cmd.ExecuteNonQuery()
@@ -36,9 +37,8 @@ Public Class CKomponent
     ''' <param name="selector">Using it to find the next item in the list</param>
     ''' <returns>Tuple returns multiple values, this returns a set of values aka all parameters we need from one item</returns>
     Public Function SqlLoadItem(ByVal selector As Integer) As Tuple(Of String, Integer, Integer) Implements IInterface.SqlLoadItem
-        Dim tabeli_asukoht As String = $"Data Source={dbPath};Version=3;"
         Try
-            Using connection As New SQLiteConnection(tabeli_asukoht)
+            Using connection As New SQLiteConnection(sqlConnectionString)
                 connection.Open()
                 Dim insertDataSql As String = "SELECT Name, Code, Grade FROM Students LIMIT 1 OFFSET @Offset"
                 Using cmd As New SQLiteCommand(insertDataSql, connection)
@@ -64,9 +64,8 @@ Public Class CKomponent
     ''' </summary>
     ''' <returns>Boolean whether doing so was a success or fail</returns>
     Private Function SqlRemoveAll() As Boolean Implements IInterface.SqlRemoveAll
-        Dim tabeli_asukoht As String = $"Data Source={dbPath};Version=3;"
         Try
-            Using connection As New SQLiteConnection(tabeli_asukoht)
+            Using connection As New SQLiteConnection(sqlConnectionString)
                 connection.Open()
                 Dim deleteDataSql As String = "DELETE FROM Students"
                 Using cmd As New SQLiteCommand(deleteDataSql, connection)
@@ -91,9 +90,8 @@ Public Class CKomponent
     ''' <returns>Returns whether adding was a success or fail</returns>
     Private Function SqlAddItem(ByVal name As String, ByVal code As Integer, ByVal grade As Integer) As Boolean Implements IInterface.SqlAddItem
 
-        Dim tabeli_asukoht As String = $"Data Source={dbPath};Version=3;"
         Try
-            Using connection As New SQLiteConnection(tabeli_asukoht)
+            Using connection As New SQLiteConnection(sqlConnectionString)
                 connection.Open()
                 Dim insertDataSql As String = "INSERT INTO Students (Name, Code, Grade) VALUES (@Name, @Code, @Grade)"
                 Using cmd As New SQLiteCommand(insertDataSql, connection)
@@ -113,9 +111,8 @@ Public Class CKomponent
     '                 '); DROP TABLE Students;--
     Private Function SqlUnsafeAddItem(ByVal name As String, ByVal code As String, ByVal grade As String) As Boolean Implements IInterface.SqlUnsafeAddItem
 
-        Dim tabeli_asukoht As String = $"Data Source={dbPath};Version=3;"
         Try
-            Using connection As New SQLiteConnection(tabeli_asukoht)
+            Using connection As New SQLiteConnection(sqlConnectionString)
                 connection.Open()
                 ''This is unsafe injection SQL solution, try "; DROP TABLE Students; --"
                 Dim insertDataSql As String = $"INSERT INTO Students (Name, Code, Grade) VALUES ('{name}', '{code}', '{grade}')"
