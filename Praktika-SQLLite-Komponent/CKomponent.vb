@@ -18,16 +18,7 @@ Public Class CKomponent
     Private Sub InitDb() Implements IInterface.InitDb
         If Not File.Exists(dbPath) Then
             SQLiteConnection.CreateFile(dbPath)
-            Dim sql As String = "CREATE TABLE IF NOT EXISTS Students (ID INTEGER AUTOINCREMENT, Name TEXT, Code INTEGER, Grade INTEGER);"
-            Try
-                Using connection As New SQLiteConnection(sqlConnectionString)
-                    connection.Open()
-                    Dim cmd As New SQLiteCommand(sql, connection)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As Exception
-                Console.WriteLine(ex.Message)
-            End Try
+            'Write code to initialize db
         End If
     End Sub
 
@@ -37,26 +28,7 @@ Public Class CKomponent
     ''' <param name="selector">Using it to find the next item in the list</param>
     ''' <returns>Tuple returns multiple values, this returns a set of values aka all parameters we need from one item</returns>
     Public Function SqlLoadItem(ByVal selector As Integer) As Tuple(Of String, Integer, Integer) Implements IInterface.SqlLoadItem
-        Try
-            Using connection As New SQLiteConnection(sqlConnectionString)
-                connection.Open()
-                Dim insertDataSql As String = "SELECT Name, Code, Grade FROM Students LIMIT 1 OFFSET @Offset"
-                Using cmd As New SQLiteCommand(insertDataSql, connection)
-                    cmd.Parameters.AddWithValue("@Offset", selector - 1)
-                    Using reader As SQLiteDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            Dim result As Tuple(Of String, Integer, Integer) = Tuple.Create(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2))
-                            Return result
-                        Else
-                            Return Tuple.Create("", 0, 0)
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-            Return Tuple.Create("", 0, 0)
-        End Try
+        'Write code for item query
     End Function
 
     ''' <summary>
@@ -64,21 +36,8 @@ Public Class CKomponent
     ''' </summary>
     ''' <returns>Boolean whether doing so was a success or fail</returns>
     Private Function SqlRemoveAll() As Boolean Implements IInterface.SqlRemoveAll
-        Try
-            Using connection As New SQLiteConnection(sqlConnectionString)
-                connection.Open()
-                Dim deleteDataSql As String = "DELETE FROM Students"
-                Using cmd As New SQLiteCommand(deleteDataSql, connection)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-            Return True
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-            Return False
-        End Try
-
-        Return True
+        'Write a function to remove all items from database (not the table of db itself!!)
+        'HINT:
     End Function
 
     ''' <summary>
@@ -89,42 +48,12 @@ Public Class CKomponent
     ''' <param name="grade">Grade of student</param>
     ''' <returns>Returns whether adding was a success or fail</returns>
     Private Function SqlAddItem(ByVal name As String, ByVal code As Integer, ByVal grade As Integer) As Boolean Implements IInterface.SqlAddItem
-
-        Try
-            Using connection As New SQLiteConnection(sqlConnectionString)
-                connection.Open()
-                Dim insertDataSql As String = "INSERT INTO Students (Name, Code, Grade) VALUES (@Name, @Code, @Grade)"
-                Using cmd As New SQLiteCommand(insertDataSql, connection)
-                    cmd.Parameters.AddWithValue("@Name", name)
-                    cmd.Parameters.AddWithValue("@Code", code)
-                    cmd.Parameters.AddWithValue("@Grade", grade)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-            Return True
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-            Return False
-        End Try
+        'Write code to safely add items to db
     End Function
 
     '                 '); DROP TABLE Students;--
     Private Function SqlUnsafeAddItem(ByVal name As String, ByVal code As String, ByVal grade As String) As Boolean Implements IInterface.SqlUnsafeAddItem
-
-        Try
-            Using connection As New SQLiteConnection(sqlConnectionString)
-                connection.Open()
-                ''This is unsafe injection SQL solution, try "; DROP TABLE Students; --"
-                Dim insertDataSql As String = $"INSERT INTO Students (Name, Code, Grade) VALUES ('{name}', '{code}', '{grade}')"
-                Using cmd As New SQLiteCommand(insertDataSql, connection)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-            Return True
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-            Return False
-        End Try
+        'Write code to add items to db (unsafely)
     End Function
 End Class
 
