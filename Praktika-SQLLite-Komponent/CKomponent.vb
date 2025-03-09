@@ -27,7 +27,7 @@ Public Class CKomponent
     ''' </summary>
     ''' <param name="selector">Using it to find the next item in the list</param>
     ''' <returns>Tuple returns multiple values, this returns a set of values aka all parameters we need from one item</returns>
-    Public Function SqlLoadItem(ByVal selector As Integer) As Tuple(Of String, Integer, Integer) Implements IInterface.SqlLoadItem
+    Public Function SqlLoadItem(ByVal selector As Integer) As String()() Implements IInterface.SqlLoadItem
         'Write code for item query
     End Function
 

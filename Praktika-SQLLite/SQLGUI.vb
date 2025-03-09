@@ -81,16 +81,18 @@ Public Class SQLGUI
     ''' </summary>
     Private Sub Refresh_Table()
         KomponentK = New Praktika_SQLLite_Komponent.CKomponent
-        Dim selecteditem As Tuple(Of String, Integer, Integer)
+        Dim selecteditem As String()()
 
         lvTabel.Items.Clear()
+        selecteditem = KomponentK.SqlLoadItem(8) ' give max amount of data rows you want to be returned 
 
-        For selector As Integer = 1 To 8
-            selecteditem = KomponentK.SqlLoadItem(selector)
-            If selecteditem.Item1 IsNot "" Then
-                lvTabel.Items.Add(New ListViewItem({selecteditem.Item1, selecteditem.Item2, selecteditem.Item3}))
-            End If
-        Next
+        If selecteditem IsNot Nothing AndAlso selecteditem.Length > 0 Then
+            For Each row As String() In selecteditem
+                If row IsNot Nothing And row.Length >= 3 Then
+                    lvTabel.Items.Add(New ListViewItem({row(0), row(1), row(2)}))
+                End If
+            Next
+        End If
 
     End Sub
 
