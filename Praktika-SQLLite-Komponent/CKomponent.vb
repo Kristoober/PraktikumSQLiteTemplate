@@ -35,7 +35,7 @@ Public Class CKomponent
     ''' Clears the entire table from SQl
     ''' </summary>
     ''' <returns>Boolean whether doing so was a success or fail</returns>
-    Private Function SqlRemoveAll() As Boolean Implements IInterface.SqlRemoveAll
+    Private Function SqlRemoveSelected(ByVal hiddenID As Integer) As Boolean Implements IInterface.SqlRemoveSelected
         'Write a function to remove all items from database (not the table of db itself!!)
         'HINT:
     End Function

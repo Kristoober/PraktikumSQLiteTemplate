@@ -16,8 +16,15 @@ Public Class SQLGUI
 
         KomponentK = New Praktika_SQLLite_Komponent.CKomponent
 
-        If KomponentK.SqlRemoveAll() Then
-            lblResponse.Text = "Database Cleared!"
+        If lvTabel.SelectedItems.Count = 0 Then
+            lblResponse.Text = lblResponse.Text = "You must select an item to remove!"
+            Exit Sub
+        End If
+
+        Dim selectedId As Integer = lvTabel.SelectedItems(0).Tag
+
+        If KomponentK.SqlRemoveSelected(selectedId) Then
+            lblResponse.Text = "Cleared!"
             Refresh_Table()
         Else
             lblResponse.Text = "Failed to Clear!"
@@ -34,10 +41,8 @@ Public Class SQLGUI
 
         KomponentK = New Praktika_SQLLite_Komponent.CKomponent
 
-        If txtboxName.Text Is Nothing Or txtboxCode.Text Is Nothing Or txtboxGrade.Text Is Nothing Then
-            lblResponse.Text = "Make sure all inputs are filled!"
-        ElseIf Not (IsNumeric(txtboxCode.Text)) Or Not (IsNumeric(txtboxGrade.Text)) Then
-            lblResponse.Text = "Invalid inputs!"
+        If Not CheckInputs() Then
+            Exit Sub
         Else
             If Not KomponentK.SqlAddItem(txtboxName.Text, txtboxCode.Text, txtboxGrade.Text) Then
                 lblResponse.Text = "damn didn't work"
@@ -88,12 +93,28 @@ Public Class SQLGUI
 
         If selecteditem IsNot Nothing AndAlso selecteditem.Length > 0 Then
             For Each row As String() In selecteditem
-                If row IsNot Nothing And row.Length >= 3 Then
+                If row IsNot Nothing And row.Length >=  Then
                     lvTabel.Items.Add(New ListViewItem({row(0), row(1), row(2)}))
                 End If
             Next
         End If
 
     End Sub
+
+    ''' <summary>
+    ''' checks if the input fields are filled and if they are filled correctly
+    ''' </summary>
+    ''' <returns>true if inputs are correct</returns>
+    Private Function CheckInputs() As Boolean
+        If String.IsNullOrWhiteSpace(txtboxName.Text) Or String.IsNullOrWhiteSpace(txtboxCode.Text) Or String.IsNullOrWhiteSpace(txtboxGrade.Text) Then
+            lblResponse.Text = "Make sure all inputs are filled!"
+            Return False
+        ElseIf Not (IsNumeric(txtboxCode.Text)) Or Not (IsNumeric(txtboxGrade.Text)) Then
+            lblResponse.Text = "Invalid inputs!"
+            Return False
+        End If
+
+        Return True
+    End Function
 
 End Class
