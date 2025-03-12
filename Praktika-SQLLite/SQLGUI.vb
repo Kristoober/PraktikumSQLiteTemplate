@@ -95,8 +95,8 @@ Public Class SQLGUI
         If selecteditem IsNot Nothing AndAlso selecteditem.Length > 0 Then
             For Each row As String() In selecteditem
                 If row IsNot Nothing And row.Length >= 4 Then
-                    Dim item As New ListViewItem({row(1), row(2), row(3)})
                     item.Tag = row(0)
+                    Dim item As New ListViewItem({row(1), row(2), row(3)})
 
                     lvTabel.Items.Add(item)
                 End If
