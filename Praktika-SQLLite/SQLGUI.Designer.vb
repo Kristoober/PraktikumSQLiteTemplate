@@ -37,13 +37,14 @@ Partial Class SQLGUI
         Me.lvGrade = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnUnsafeAdd = New System.Windows.Forms.Button()
+        Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(361, 135)
+        Me.btnAdd.Location = New System.Drawing.Point(347, 135)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(67, 31)
+        Me.btnAdd.Size = New System.Drawing.Size(73, 31)
         Me.btnAdd.TabIndex = 5
         Me.btnAdd.Text = "Add"
         Me.btnAdd.UseVisualStyleBackColor = True
@@ -94,9 +95,9 @@ Partial Class SQLGUI
         '
         'btnRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(230, 211)
+        Me.btnRemove.Location = New System.Drawing.Point(224, 211)
         Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(67, 31)
+        Me.btnRemove.Size = New System.Drawing.Size(73, 31)
         Me.btnRemove.TabIndex = 15
         Me.btnRemove.Text = "Remove"
         Me.btnRemove.UseVisualStyleBackColor = True
@@ -156,18 +157,28 @@ Partial Class SQLGUI
         '
         'btnUnsafeAdd
         '
-        Me.btnUnsafeAdd.Location = New System.Drawing.Point(433, 135)
+        Me.btnUnsafeAdd.Location = New System.Drawing.Point(420, 135)
         Me.btnUnsafeAdd.Name = "btnUnsafeAdd"
-        Me.btnUnsafeAdd.Size = New System.Drawing.Size(67, 31)
+        Me.btnUnsafeAdd.Size = New System.Drawing.Size(73, 31)
         Me.btnUnsafeAdd.TabIndex = 22
         Me.btnUnsafeAdd.Text = "Unsafe Add"
         Me.btnUnsafeAdd.UseVisualStyleBackColor = True
+        '
+        'BtnUpdate
+        '
+        Me.BtnUpdate.Location = New System.Drawing.Point(19, 212)
+        Me.BtnUpdate.Name = "BtnUpdate"
+        Me.BtnUpdate.Size = New System.Drawing.Size(73, 30)
+        Me.BtnUpdate.TabIndex = 23
+        Me.BtnUpdate.Text = "Update"
+        Me.BtnUpdate.UseVisualStyleBackColor = True
         '
         'SQLGUI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(505, 261)
+        Me.Controls.Add(Me.BtnUpdate)
         Me.Controls.Add(Me.btnUnsafeAdd)
         Me.Controls.Add(Me.lvTabel)
         Me.Controls.Add(Me.Label2)
@@ -201,4 +212,5 @@ Partial Class SQLGUI
     Friend WithEvents lvGrade As ColumnHeader
     Friend WithEvents Label2 As Label
     Friend WithEvents btnUnsafeAdd As Button
+    Friend WithEvents BtnUpdate As Button
 End Class

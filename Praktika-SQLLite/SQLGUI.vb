@@ -79,6 +79,33 @@ Public Class SQLGUI
         End If
         Refresh_Table()
     End Sub
+
+    Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
+        KomponentK = New Praktika_SQLLite_Komponent.CKomponent
+
+        If lvTabel.SelectedItems.Count = 0 Then
+            lblResponse.Text = "You must select an item to update!"
+            Exit Sub
+        End If
+
+        If Not CheckInputs() Then
+            Exit Sub
+        End If
+
+        Dim selectedItem As ListViewItem = lvTabel.SelectedItems(0)
+
+        Dim selectedItemId As Integer = selectedItem.Tag
+
+        Dim newUserInfo As String() = {txtboxName.Text, txtboxCode.Text, txtboxGrade.Text}
+
+        If KomponentK.SqlUpdate(selectedItemId, newUserInfo) Then
+            lblResponse.Text = "Updated successfully! :)"
+        Else
+            lblResponse.Text = "something went wrong! :("
+        End If
+
+        Refresh_Table()
+    End Sub
     ''LIIDESTUS
 
     ''' <summary>
@@ -95,8 +122,8 @@ Public Class SQLGUI
         If selecteditem IsNot Nothing AndAlso selecteditem.Length > 0 Then
             For Each row As String() In selecteditem
                 If row IsNot Nothing And row.Length >= 4 Then
-                    item.Tag = row(0)
                     Dim item As New ListViewItem({row(1), row(2), row(3)})
+                    item.Tag = row(0)
 
                     lvTabel.Items.Add(item)
                 End If
@@ -119,5 +146,4 @@ Public Class SQLGUI
 
         Return True
     End Function
-
 End Class
