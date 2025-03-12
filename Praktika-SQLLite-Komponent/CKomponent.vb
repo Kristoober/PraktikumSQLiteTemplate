@@ -18,8 +18,11 @@ Public Class CKomponent
     Private Sub InitDb() Implements IInterface.InitDb
         If Not File.Exists(dbPath) Then
             SQLiteConnection.CreateFile(dbPath)
-            'Write code to initialize db
         End If
+        'Dim sqlQuery As String = "CREATE TABLE IF NOT EXISTS Students (ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        '                                                               Name TEXT,
+        '                                                               Code INTEGER,
+        '                                                               Grade INTEGER);"
     End Sub
 
     '                 '); DROP TABLE Students;--
