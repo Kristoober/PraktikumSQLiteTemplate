@@ -36,8 +36,7 @@ Public Class CKomponent
     ''' </summary>
     ''' <returns>Boolean whether doing so was a success or fail</returns>
     Private Function SqlRemoveSelected(ByVal hiddenID As Integer) As Boolean Implements IInterface.SqlRemoveSelected
-        'Write a function to remove all items from database (not the table of db itself!!)
-        'HINT:
+        'Write a function to remove the item with the given ID from database
     End Function
 
     ''' <summary>

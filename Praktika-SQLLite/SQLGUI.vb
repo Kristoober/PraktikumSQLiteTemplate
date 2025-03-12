@@ -89,16 +89,19 @@ Public Class SQLGUI
         Dim selecteditem As String()()
 
         lvTabel.Items.Clear()
-        selecteditem = KomponentK.SqlLoadItem(8) ' give max amount of data rows you want to be returned 
+
+        selecteditem = KomponentK.SqlLoadItem(8)
 
         If selecteditem IsNot Nothing AndAlso selecteditem.Length > 0 Then
             For Each row As String() In selecteditem
-                If row IsNot Nothing And row.Length >=  Then
-                    lvTabel.Items.Add(New ListViewItem({row(0), row(1), row(2)}))
+                If row IsNot Nothing And row.Length >= 4 Then
+                    Dim item As New ListViewItem({row(1), row(2), row(3)})
+                    item.Tag = row(0)
+
+                    lvTabel.Items.Add(item)
                 End If
             Next
         End If
-
     End Sub
 
     ''' <summary>
